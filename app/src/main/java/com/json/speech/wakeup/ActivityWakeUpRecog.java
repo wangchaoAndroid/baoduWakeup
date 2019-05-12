@@ -99,13 +99,10 @@ public class ActivityWakeUpRecog extends ActivityWakeUp implements IStatus {
         boolean isOfflineInited  = (boolean) SPUtil.get(this, SPUtil.OFFLINE_INITED, false);
         if ( !isOfflineInited && enableOffline ) {
             // 基于DEMO集成1.4 加载离线资源步骤(离线时使用)。offlineParams是固定值，复制到您的代码里即可
-            if(NetWorkUtils.isConnected(this)){
-                Map<String, Object> offlineParams = OfflineRecogParams.fetchOfflineParams();
-                myRecognizer.loadOfflineEngine(offlineParams);
-                SPUtil.put(this,SPUtil.OFFLINE_INITED,true);
-            }else {
-                Toast.makeText(this,"语音识别未初始化，请检查网络",Toast.LENGTH_SHORT).show();
-            }
+            Log.e(TAG,"开始加载离线引擎");
+            Map<String, Object> offlineParams = OfflineRecogParams.fetchOfflineParams();
+            myRecognizer.loadOfflineEngine(offlineParams);
+            SPUtil.put(this,SPUtil.OFFLINE_INITED,true);
 
         }
     }
@@ -159,7 +156,9 @@ public class ActivityWakeUpRecog extends ActivityWakeUp implements IStatus {
 
     @Override
     protected void onDestroy() {
+        //不需要释放
         myRecognizer.release();
+        SPUtil.put(this,SPUtil.OFFLINE_INITED,false);
         super.onDestroy();
     }
 

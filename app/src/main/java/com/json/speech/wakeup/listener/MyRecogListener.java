@@ -15,12 +15,12 @@ public class MyRecogListener implements IRecogListener {
     public static final String  TAG = "MyRecogListener";
     @Override
     public void onAsrReady() {
-        Log.e(TAG,"onAsrReady");
+        Log.e(TAG,"onAsrReady ");
     }
 
     @Override
     public void onAsrBegin() {
-        Log.e(TAG,"onAsrBegin");
+        Log.e(TAG,"onAsrBegin 说话开始");
     }
 
     /**
@@ -28,7 +28,7 @@ public class MyRecogListener implements IRecogListener {
      */
     @Override
     public void onAsrEnd() {
-        Log.e(TAG,"onAsrEnd");
+        Log.e(TAG,"onAsrEnd 说话结束");
         PcmToWavUtil pcmToWavUtil = new PcmToWavUtil();
         String outPutPath  = FiLeManager.WAV_PATH + "/outfile.wav";
         File file =  new File(FiLeManager.WAV_PATH);
